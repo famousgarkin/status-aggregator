@@ -1,0 +1,22 @@
+version: '2'
+services:
+  app:
+    image: node:10
+    volumes:
+      - .:/app
+    environment:
+      STATUS_AGGREGATOR_CONFIG: |
+        {
+          "upstreamUrls": [
+            "http://nginx1",
+            "http://nginx2"
+          ]
+        }
+    working_dir: /app
+    command: ./bin/server
+
+  nginx1:
+    image: nginx:alpine
+
+  nginx2:
+    image: nginx:alpine

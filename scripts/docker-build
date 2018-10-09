@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+
+set -ex
+
+docker build -t smartsupp/status .
+
+export COMPOSE_FILE=docker-compose.latest.yml
+
+docker-compose run --rm app make test
+
+test_status() {
+	status=$(docker-compose run --rm app curl -s -o /dev/null -w "%{http_code}" app/status)
+	if [ $status != $1 ]
+	then
+		exit 1
+	fi
+}
+
+# test ok status
+docker-compose up -d
+test_status 200
+
+# test partially ok status
+docker-compose stop nginx1
+test_status 503
+
+# test not ok status
+docker-compose stop nginx2
+test_status 503
+
+docker-compose down
