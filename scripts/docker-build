@@ -2,7 +2,7 @@
 
 set -ex
 
-docker build -t smartsupp/status .
+docker build -t smartsupp/status-aggregator .
 
 export COMPOSE_FILE=docker-compose.latest.yml
 

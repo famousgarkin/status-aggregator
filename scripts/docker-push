@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+set -ex
+
+docker login --username="$DOCKER_USERNAME" --password="$DOCKER_PASSWORD"
+
+image=smartsupp/status-aggregator
+tag=$TAG
+
+docker tag ${image} ${image}:${tag}
+docker push ${image}:${tag}

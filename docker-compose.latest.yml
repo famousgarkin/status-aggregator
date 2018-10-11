@@ -1,7 +1,7 @@
 version: '2'
 services:
   app:
-    image: smartsupp/status
+    image: smartsupp/status-aggregator
     environment:
       STATUS_AGGREGATOR_CONFIG: |
         {
