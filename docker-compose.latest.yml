@@ -16,3 +16,7 @@ services:
 
   nginx2:
     image: nginx:alpine
+
+  curl:
+    image: appropriate/curl
+    command: 'true'
