@@ -11,9 +11,15 @@ const server = http.createServer((req, res) => {
 		Promise.all(config.upstreamUrls.map(lib.getUrlStatus))
 		.then((statuses) => {
 			const status = lib.getAggregateStatus(statuses)
-			console.log(status, statuses)
 			res.statusCode = status
-			res.end()
+			res.setHeader('Content-Type', 'application/json')
+			res.end(JSON.stringify({
+				status: status,
+				upstream: config.upstreamUrls.map((url, i) => ({
+					url: url,
+					status: statuses[i],
+				}))
+			}))
 		})
 		.catch((error) => {
 			console.log(error)

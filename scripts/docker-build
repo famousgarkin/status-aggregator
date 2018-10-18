@@ -9,6 +9,7 @@ export COMPOSE_FILE=docker-compose.latest.yml
 docker-compose run --rm app make test
 
 test_status() {
+	body=$(docker-compose run --rm curl app/status)
 	status=$(docker-compose run --rm curl -s -o /dev/null -w "%{http_code}" app/status)
 	if [ $status != $1 ]
 	then
