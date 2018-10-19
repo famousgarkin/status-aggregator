@@ -21,6 +21,15 @@ Takes stringified JSON config of the following format via `STATUS_AGGREGATOR_CON
 GET /status
 ```
 
+```
+{
+    "upstream": [
+        {"status": 200, "url": "http://nginx1"},
+        {"status": 200, "url": "http://nginx2"}
+    ]
+}
+```
+
 * returns HTTP 200 when:
     * no upstream status URLs are configured
     * all the upstream status checks return HTTP 200
